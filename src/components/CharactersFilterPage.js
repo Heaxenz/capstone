@@ -1,38 +1,48 @@
 import React, { useState, useEffect } from "react";
 import Characters from "./Characters";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
+
 
 const CharacterFilter = () => {
     const [pageNumber, setPageNumber] = useState(1);
-    const [loading, setLoading] = useState(true)
-    const [character, setCharacters] = useState('');
-console.log(character)
+
     let navigate = useNavigate();
     useEffect(() => {
 
         const navigateToPage = () => {
+            try {
             navigate(`/characters/page/${pageNumber}`)
+            } catch(e) {
+                console.log(e)
+            }
         }
         navigateToPage()
 
-        async function fetchCharacters() {
-            let res = await axios.get(`https://anapioficeandfire.com/api/characters?page=${pageNumber}&pagesize=10`)
-            setCharacters(res.data)
-            setLoading(false)
-        }
-        fetchCharacters();
-
-
     }, [pageNumber])
+
+
 
     const nextPage = () => {
         setPageNumber(pageNumber + 1)
-        console.log('page')
+    }
+    
+    const prevPage = () => {
+        if(pageNumber > 1) {
+            setPageNumber(pageNumber - 1)
+        } else {
+            setPageNumber(1)
+        }
+    }
+    
+    const buttonVal = (e) => {
+        setPageNumber(Number(e.target.value))
     }
 
     return (
-        <Characters pageNumber={pageNumber} nextPage={() => nextPage()} characters={character} />
+        <div>
+            <Characters pageNumber={pageNumber} nextPage={() => nextPage()} prevPage={() => prevPage()} buttonVal={(e) => buttonVal(e)}/>
+        </div>
     )
 }
 

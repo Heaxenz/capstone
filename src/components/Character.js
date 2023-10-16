@@ -1,13 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState} from "react";
-import axios, { all } from "axios";
+import { useEffect, useState} from "react";
+import axios from "axios";
 const Character = () => {
 const {characterId} = useParams();
 const [character, setCharacter] = useState('')
 const [Loading, setLoading] = useState(true)
 const [characterAllegiances, setCharacterAllegiances] = useState([])
 const [characterSpouse, setCharacterSpouse] = useState('')
+
     useEffect(() => {
         async function getCharacter(){
             try {
@@ -18,8 +19,7 @@ const [characterSpouse, setCharacterSpouse] = useState('')
                 console.log(e)
             }
         }
-        getCharacter();
-
+        
         async function getAddAllegiances(){
             let empty = character.allegiances
             let ray = []
@@ -36,9 +36,23 @@ const [characterSpouse, setCharacterSpouse] = useState('')
             
         
         }
+
+        async function getAddCharacters(){
+            try{
+           let spouse = character.spouse 
+           let res = await axios.get(spouse)
+           setCharacterSpouse(res.data.name)
+            } catch(e){
+                console.log(e)
+            }
+        }
+
+       
+        getCharacter();
+        getAddCharacters();
         getAddAllegiances();
        
-    }, [Loading])
+    }, [characterId, Loading])
 
     if(Loading){
         return <div>... Loading</div>
@@ -49,24 +63,14 @@ const [characterSpouse, setCharacterSpouse] = useState('')
     const {name, aliases, gender, culture, born, died, titles, father, mother, allegiances, spouse} = character;
 
 
-    async function getAddCharacters(){
-        try{
-       let spouse = character.spouse 
-       let res = await axios.get(spouse)
-       setCharacterSpouse(res.data.name)
-        } catch(e){
-           
-        }
-    }
-    getAddCharacters();
-
-
+    
 
     
    
 
 return (
     <div>
+        {console.log(character.spouse)}
         <ul>
             <li>
                 Name: {name === '' ? 'Unknown' : name} 
@@ -118,7 +122,6 @@ return (
                 
             </li>
         </ul>
-        {console.log(character)}
     </div>
 )
     

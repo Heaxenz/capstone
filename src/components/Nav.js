@@ -10,12 +10,12 @@ const Nav = () => {
             </Link>
 
             <Link
-                to="/characters/page/:num"
+                to="/characters/page/1"
             > Characters
             </Link>
 
             <Link
-                to="/houses"
+                to="/houses/page/1"
             > Houses
             </Link>
 

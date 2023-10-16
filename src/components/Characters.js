@@ -1,91 +1,80 @@
-import React, { useState, useEffect, useParams } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, Navigate, useNavigate } from 'react-router-dom'
-import Character from './Character';
-import CharacterContext from './CharacterContext';
+import { useNavigate, useParams } from 'react-router-dom'
 import './Characters.css'
 
-const Characters = ({pageNumber, nextPage, character}) => {
+const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
+    let navigate = useNavigate();
     
-//    console.log(character)
-//     const [character, setCharacters] = useState('');
-//     const [loading, setLoading] = useState(true)
+    const [character, setCharacters] = useState('');
+    const [loading, setLoading] = useState(true)
+    const [pageSize, setPageSize] = useState(10)
 
-//     useEffect(() => {
-//         async function fetchCharacters() {
-//             let res = await axios.get(`https://anapioficeandfire.com/api/characters?page=${pageNumber}&pagesize=10`)
-//             if (character.length < 10)
-//                 setCharacters(res.data)
-//             setLoading(false)
-//         }
-//         fetchCharacters();
-//     }, [loading, pageNumber, character])
+  
 
-//     const navigate = useNavigate();
+    useEffect(() => {
+        async function fetchCharacters() {
+            try{
+            let res = await axios.get(`https://anapioficeandfire.com/api/characters?page=${pageNumber}&pagesize=${pageSize}`)
+                setCharacters(res.data)
+                setLoading(false)
+            } catch(e){
+                console.log(e)
+            }
+        }
 
-//     const navigateToCharacter = ({ data }) => {
-//         try {
-//             const url = data.url.split('').splice(45).join('')
-//             navigate(`/character/${url}`)
-
-//         } catch (e) {
-
-//         }
-
-//     }
-    
-//     if (loading) {
-//         return (
-//             <div>Loading...</div>
-//         )
-//     }
-
-//     // const next = () => {
-//     //     // setPageNumber(pageNumber + 1)
-//     //     setLoading(true)
-//     //     setCharacters('');
-//     // }
-//     // const prev = () => {
-//     //     if (pageNumber === 1) {
-//     //         // setPageNumber(1)
-//     //     } else {
-//     //         // setPageNumber(pageNumber - 1)
-//     //         setLoading(true)
-//     //         setCharacters('');
-//     //     }
-        
-//     // }
+        fetchCharacters();
+    }, [pageNumber, loading])
 
 
 
+    const navigateToCharacter = (url) => {
+        try {
+            const characterId = url.split('/').pop();
+            navigate(`/character/${characterId}`);
 
-//     return (
+        } catch (e) {
+            console.log(e)
+        }
 
-//         <div>
+    }
 
-//             {character.map(data => (
-//                 <div className="character-details">
 
-//                     <button className="character-details"
-//                         onClick={() => navigateToCharacter({ data })}>
-//                         {data.name === "" ? data.aliases : data.name}
-//                         {data.culture === '' ? '' : `, ${data.culture}`},
-//                         {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
-//                     </button>
-                    
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        )
+    }
 
-//                 </div>
-                
 
-//             ))}
-//             <button >Prev</button>
-//             <button onClick={() => nextPage}>Next</button>
+    return (
 
-           
+        <div>
+            
+            {character.map(data => (
+                <div className="character-details" key={data.url}>
+                    <button className="character-details"
+                        onClick={() => navigateToCharacter(data.url)}>
+                        {data.name === "" ? data.aliases : data.name}
+                        {data.culture === '' ? '' : `, ${data.culture}`},
+                        {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
+                    </button>
 
-//         </div>
-//     )
- }
+
+                </div>
+
+
+            ))}
+            {pageNumber > 1 ? <button onClick={prevPage} >Prev</button> : null  }
+            
+                <button>{pageNumber}</button>
+            <button onClick={nextPage}>Next</button>
+
+
+
+        </div>
+    )
+}
 
 export default Characters;
 
