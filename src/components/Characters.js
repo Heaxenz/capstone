@@ -24,7 +24,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
         }
 
         fetchCharacters();
-    }, [pageNumber, loading])
+    }, [pageNumber, loading, pageSize])
 
 
 
@@ -39,6 +39,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
 
     }
 
+    // const selectOption = ()
 
     if (loading) {
         return (
@@ -51,8 +52,18 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
 
         <div>
             
+            <div  style={{display: 'inline-block'}}>
+            <div style={{display: 'inline-block'}}>
+                <select onChange={(e) => setPageSize(e.target.value)}>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                </select>
+            </div>
             {character.map(data => (
-                <div className="character-details" key={data.url}>
+                <div  className="character-details" key={data.url}>
                     <button className="character-details"
                         onClick={() => navigateToCharacter(data.url)}>
                         {data.name === "" ? data.aliases : data.name}
@@ -60,16 +71,22 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
                         {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
                     </button>
 
+                
 
                 </div>
 
 
             ))}
+
+            </div>
+            
+            <div>
             {pageNumber > 1 ? <button onClick={prevPage} >Prev</button> : null  }
             
+          
                 <button>{pageNumber}</button>
             <button onClick={nextPage}>Next</button>
-
+            </div>
 
 
         </div>
