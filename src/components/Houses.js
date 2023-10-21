@@ -20,10 +20,11 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
             }
 
 
+
         }
 
-
         fetchHouses()
+
     }, [pageNumber, Loading, pageSize])
 
     const navigateToHouse = (url) => {
@@ -37,6 +38,28 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
 
     }
 
+    async function getCharacter(currentLord) {
+        try {
+            let res = await axios.get(currentLord);
+            console.log(res.data.name)
+            return (
+                <>
+                    {res.data.name}
+                </>
+
+
+            )
+        } catch (e) {
+            console.log(e)
+        }
+
+
+
+    }
+
+
+
+
     if (Loading) {
         return (
             <div>
@@ -46,45 +69,47 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
     }
     return (
         <div>
-            
-        <div  style={{display: 'inline-block'}}>
-        <div style={{display: 'inline-block'}}>
-            <select onChange={(e) => setPageSize(e.target.value)}>
-                <option>10</option>
-                <option>20</option>
-                <option>30</option>
-                <option>40</option>
-                <option>50</option>
-            </select>
-        </div>
-        {houses.map(data => (
-            <div  className="character-details" key={data.url}>
-                <button className="character-details"
-                    onClick={() => navigateToHouse(data.url)}>
-                    {data.name === "" ? data.aliases : data.name}
-                    {data.culture === '' ? '' : `, ${data.culture}`},
-                    {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
-                </button>
 
-            
+            <div className="main-div">
+                <h1 className="header">Houses</h1>
+                <div className="select-div">
+                    <p>Page Size:</p>
+                    <select className="selector" onChange={(e) => setPageSize(e.target.value)}>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                {houses.map(data => (
+                    <div style={{ textAlign: 'center', margin: '20px' }} className="character-details" key={data.url}>
+
+                        <div className="character-details">
+                            Name: {data.name === "" ? 'Unknown' : data.name}
+                            <ul>
+
+                                <li> Titles: {data.titles[0] === '' ? 'None' : ` ${data.titles}`}</li>
+
+                                {data.currentLord === '' ? '' : <li>Current Lord: {data.currentLord}</li>}
+                                <p>
+                                    Sworn Members: {console.log(data.currentLord)}
+                                </p>
+                            </ul>
+                        </div>
+                    </div>
+                ))}
 
             </div>
 
+            <div className="pages-div">
+                {pageNumber > 1 ? <button className="buttons" onClick={prevPage} >Prev</button> : null}
 
-        ))}
+                <button className="buttons main-button" >{pageNumber}</button>
+                <button className="buttons" onClick={nextPage}>Next</button>
+            </div>
 
         </div>
-        
-        <div>
-        {pageNumber > 1 ? <button onClick={prevPage} >Prev</button> : null  }
-        
-      
-            <button>{pageNumber}</button>
-        <button onClick={nextPage}>Next</button>
-        </div>
-
-
-    </div>
     )
 }
 

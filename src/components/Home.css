@@ -1,0 +1,33 @@
+.welcome{
+text-align: center;
+margin-top:20px;
+margin-bottom: 20px;
+font-size:60px;
+
+}
+
+.home-div{
+    width:70rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    margin:auto;
+    font-size:30px;
+    
+    
+}
+.image-home{
+    width:600px;
+    margin:0 auto;
+}
+.desc-div{
+ text-align: center;
+}
+.anchor-div{
+    padding:25px;
+   
+}
+.anchor{
+    padding:20px;
+}

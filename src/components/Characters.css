@@ -1,7 +1,46 @@
 .character-details{
     color:black;
     text-decoration: none;
-    padding: none;
+    padding: 5px;
     border:none;
     background-color: white;
+    text-align: center;
+    font-size:25px;
+    font-weight: 100;
+
+}
+.main-div{
+    text-align: center;
+}
+.header{
+    font-size:90px;
+    padding:35px;
+    text-decoration:underline salmon 20px;
+    text-align: center;
+}
+.select-div{
+    position:fixed;
+    font-size: 20px;
+    display:flex;
+    justify-self:end;
+    flex-direction: column;
+    right: 50px;
+}
+.selector{
+    text-align: center;
+    font-size: 15px;
+}
+.pages-div{
+    text-align: center;
+    margin-top:20px;
+    padding-bottom:20px;
+    
+}
+.buttons{
+    padding:8px;
+    font-size:12px;
+    margin:5px;
+}
+.main-button{
+    border:none;
 }

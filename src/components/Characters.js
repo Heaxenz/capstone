@@ -3,22 +3,22 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'
 import './Characters.css'
 
-const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
+const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
     let navigate = useNavigate();
-    
+
     const [character, setCharacters] = useState('');
     const [loading, setLoading] = useState(true)
     const [pageSize, setPageSize] = useState(10)
 
-  
+
 
     useEffect(() => {
         async function fetchCharacters() {
-            try{
-            let res = await axios.get(`https://anapioficeandfire.com/api/characters?page=${pageNumber}&pagesize=${pageSize}`)
+            try {
+                let res = await axios.get(`https://anapioficeandfire.com/api/characters?page=${pageNumber}&pagesize=${pageSize}`)
                 setCharacters(res.data)
                 setLoading(false)
-            } catch(e){
+            } catch (e) {
                 console.log(e)
             }
         }
@@ -51,41 +51,37 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal}) => {
     return (
 
         <div>
-            
-            <div  style={{display: 'inline-block'}}>
-            <div style={{display: 'inline-block'}}>
-                <select onChange={(e) => setPageSize(e.target.value)}>
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
-                    <option>50</option>
-                </select>
-            </div>
-            {character.map(data => (
-                <div  className="character-details" key={data.url}>
-                    <button className="character-details"
-                        onClick={() => navigateToCharacter(data.url)}>
-                        {data.name === "" ? data.aliases : data.name}
-                        {data.culture === '' ? '' : `, ${data.culture}`},
-                        {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
-                    </button>
-
-                
-
+            <div className="main-div">
+                <h1 className="header">Characters</h1>
+                <div className='select-div'>
+                    <p>Page Size: </p>
+                    <select className="selector" onChange={(e) => setPageSize(e.target.value)}>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
                 </div>
+                {character.map(data => (
+                    <div className="character-details" key={data.url}>
 
+                        <button className="character-details"
+                            onClick={() => navigateToCharacter(data.url)}>
+                            {data.name === "" ? data.aliases : data.name}
+                            {data.culture === '' ? '' : `, ${data.culture}`},
+                            {data.gender === 'Female' ? ' ♀️' : ' ♂️'}
 
-            ))}
+                        </button>
+                    </div>
+                ))}
 
             </div>
-            
-            <div>
-            {pageNumber > 1 ? <button onClick={prevPage} >Prev</button> : null  }
-            
-          
-                <button>{pageNumber}</button>
-            <button onClick={nextPage}>Next</button>
+
+            <div className="pages-div">
+                {pageNumber > 1 ? <button className="buttons" onClick={prevPage} >Prev</button> : null}
+                <button className="buttons main-button" >{pageNumber}</button>
+                <button className="buttons" onClick={nextPage}>Next</button>
             </div>
 
 

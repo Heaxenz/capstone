@@ -1,0 +1,12 @@
+.main-nav{
+    background-color:rgb(85, 96, 41);
+    margin:none;
+    padding:20px;
+}
+.links{
+    text-decoration: none;
+    color:white;
+    padding:10px;
+    margin:none;
+    font-size:20px;
+}
