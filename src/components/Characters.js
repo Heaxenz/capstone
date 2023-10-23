@@ -5,7 +5,8 @@ import './Characters.css'
 
 const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
     let navigate = useNavigate();
-
+    const {num} = useParams();
+    console.log(num)
     const [character, setCharacters] = useState('');
     const [loading, setLoading] = useState(true)
     const [pageSize, setPageSize] = useState(10)
@@ -24,8 +25,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
         }
 
         fetchCharacters();
-    }, [pageNumber, loading, pageSize])
-
+    }, [num, pageNumber, loading, pageSize])
 
 
     const navigateToCharacter = (url) => {

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Characters from "./Characters";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 
 const CharacterFilter = () => {
+  
     const [pageNumber, setPageNumber] = useState(1);
-
+    
     let navigate = useNavigate();
     useEffect(() => {
 

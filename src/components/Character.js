@@ -2,6 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState} from "react";
 import axios from "axios";
+import './Character.css'
+
 const Character = () => {
 const {characterId} = useParams();
 const [character, setCharacter] = useState('')
@@ -69,9 +71,10 @@ const [characterSpouse, setCharacterSpouse] = useState('')
    
 
 return (
-    <div>
-        {console.log(character.spouse)}
-        <ul>
+    <div className="main-div">
+  
+        <ul className='main-list'> 
+            <h1 className="header">Character</h1>
             <li>
                 Name: {name === '' ? 'Unknown' : name} 
             </li> 
