@@ -36,11 +36,13 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
                         const memberRes = await axios.get(member)
                         const Member = memberRes.data.name
                         const urls = memberRes.data.url
-                        mem.push({Member, urls})
+                        mem.push(Member)
+                        memUrls.push(urls)
                         
                         
                        }
                        updatedHouse.swornMembers = mem
+                       updatedHouse.memberUrls = memUrls
                        
                     }
                     
@@ -100,16 +102,25 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
                         <div className="character-details">
                             <p>House Name: {data.name === "" ? 'Unknown' : data.name}</p>
                             <p>Titles: {data.titles[0] === '' ? "None" : ` ${data.titles}`}</p>
-                            {data.currentLord === "" ? "" : (
-                                <p>
-                                    Current Lord: {data.currentLord.lordName}
+                            <p> Current Lord: {data.currentLord === "" ? "None" : (
+                               <>
+                                     {data.currentLord.lordName}
                                     <button onClick={() => sendTocharacter(data)}>👑</button>
-                                </p>
-                            )}
-                            {/* Sworn Members: {data.swornMembers.map((character => {   
-                                {character.member}
+                                    </>
+                            )}</p>
+                            
+                            <p> Sworn Members: {data.swornMembers.map((mem => { 
+
+                               <>
+                                {mem}
+                               </>   
+                              
+                                    
                                 
-                            }))} */}
+                                
+                                
+                            }))}
+                            </p>
     
                           
                             
