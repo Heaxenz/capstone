@@ -5,7 +5,7 @@ import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 
 const CharacterFilter = () => {
-  
+
     const [pageNumber, setPageNumber] = useState(1);
     
     let navigate = useNavigate();

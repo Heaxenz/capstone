@@ -54,7 +54,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
             <div className="main-div">
                 <h1 className="header">Characters</h1>
                 <div className='select-div'>
-                    <p>Page Size: </p>
+                    <p>Characters per Page: </p>
                     <select className="selector" onChange={(e) => setPageSize(e.target.value)}>
                         <option>10</option>
                         <option>20</option>

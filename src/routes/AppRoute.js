@@ -4,7 +4,6 @@ import Home from "../components/Home";
 import Character from "../components/Character";
 import CharactersFilterPage from '../components/CharactersFilterPage';
 import HouseFilter from "../components/HouseFilter";
-import House from "../components/House";
 const AppRoute = () => {
     return (
     

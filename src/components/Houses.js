@@ -1,65 +1,44 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import './Houses.css'
 
 const Houses = ({ pageNumber, prevPage, nextPage }) => {
     const [houses, setHouses] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [loading, setLoading] = useState(true);
-    const [currentLordNames, setCurrentLordNames] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        // get data from api based on the pageNumber & pageSize given from HouseFilter.js to set the state for houses
         async function fetchData() {
             try {
                 let res = await axios.get(`https://anapioficeandfire.com/api/houses?page=${pageNumber}&pagesize=${pageSize}`);
                 const data = res.data;
                 const updatedHouses = [];
-                
-                //loop to get the current lord url and use it as an axios get 
-                // I also made an object to store the lord name along with the lord url
+
                 for (const house of data) {
                     const updatedHouse = { ...house };
+
                     if (house.currentLord) {
                         const lordRes = await axios.get(house.currentLord);
-                        const lordName = lordRes.data.name
-                        const lordUrl = lordRes.data.url
-                        updatedHouse.currentLord = ({lordName, lordUrl}) || "Unknown";
+                        const lordName = lordRes.data.name;
+                        const lordUrl = lordRes.data.url;
+                        updatedHouse.currentLord = { lordName, lordUrl } || "Unknown";
                     }
-                    // I also did the same with the sworn members
-                    if(house.swornMembers){
-                        const mem = []
-                        const memUrls = []
-                       for(const member of house.swornMembers){
-                        const memberRes = await axios.get(member)
-                        const Member = memberRes.data.name
-                        const urls = memberRes.data.url
-                        mem.push(Member)
-                        memUrls.push(urls)
-                        
-                        
-                       }
-                       updatedHouse.swornMembers = mem
-                       updatedHouse.memberUrls = memUrls
-                       
+
+                    if (house.swornMembers) {
+                        const mem = [];
+                        for (const member of house.swornMembers) {
+                            const memberRes = await axios.get(member);
+                            const memberName = memberRes.data.name;
+                            const memberUrl = member;
+                            mem.push({ name: memberName, url: memberUrl });
+                        }
+                        updatedHouse.swornMembers = mem;
                     }
-                    
+
                     updatedHouses.push(updatedHouse);
-                
                 }
-                // for (const houses of updatedHouses) {
-                //     if(houses.swornMembers){
-                //         for(const member of houses.swornMembers){
-                //            const res = await axios.get(member)
-                //           houses.swornMembers = res.data.name
-                //           console.log(houses.swornMembers)
-                //         }
-                        
-                //     }
-                   
-                // }
 
                 setHouses(updatedHouses);
                 setLoading(false);
@@ -67,17 +46,14 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
                 console.error(e);
             }
         }
-        
+
         fetchData();
     }, [pageNumber, pageSize]);
 
-   const sendTocharacter = (data) => {
-    const url = data.currentLord.lordUrl
-    const characterId = url.split('/').pop();
-    navigate(`/character/${characterId}`)
-
-   }
-
+    const navigateToMemberPage = (memberUrl) => {
+        const memberId = memberUrl.split('/').pop();
+        navigate(`/character/${memberId}`);
+    };
 
     if (loading) {
         return <div>...Loading</div>;
@@ -88,7 +64,7 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
             <div className="main-div">
                 <h1 className="header">Houses</h1>
                 <div className="select-div">
-                    <p>Page Size:</p>
+                    <p>Houses per Page:</p>
                     <select className="selector" onChange={(e) => setPageSize(e.target.value)}>
                         <option>10</option>
                         <option>20</option>
@@ -103,28 +79,23 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
                             <p>House Name: {data.name === "" ? 'Unknown' : data.name}</p>
                             <p>Titles: {data.titles[0] === '' ? "None" : ` ${data.titles}`}</p>
                             <p> Current Lord: {data.currentLord === "" ? "None" : (
-                               <>
-                                     {data.currentLord.lordName}
-                                    <button onClick={() => sendTocharacter(data)}>👑</button>
-                                    </>
+                                <>
+                                    {data.currentLord.lordName}
+                                    <button onClick={() => navigateToMemberPage(data.currentLord.lordUrl)}>👑</button>
+                                </>
                             )}</p>
-                            
-                            <p> Sworn Members: {data.swornMembers.map((mem => { 
-
-                               <>
-                                {mem}
-                               </>   
-                              
-                                    
-                                
-                                
-                                
-                            }))}
-                            </p>
-    
-                          
-                            
-
+                            <div> Sworn Members: {data.swornMembers.length > 0 ? (
+                                <ul className='mem-list'>
+                                    {data.swornMembers.map((mem, index) => (
+                                        <li key={index}>
+                                            <span>{mem.name}</span>
+                                            {console.log(index)}
+                                            
+                                            <button onClick={() => navigateToMemberPage(mem.url)}>⚔️</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : "None"}</div>
                         </div>
                     </div>
                 ))}
