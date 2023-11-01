@@ -11,7 +11,7 @@ const HouseFilter = () => {
     
             const navigateToPage = () => {
                 try {
-                navigate(`/houses/page/${pageNumber}`)
+                navigate(`/capstone/houses/page/${pageNumber}`)
                 } catch(e) {
                     console.log(e)
                 }

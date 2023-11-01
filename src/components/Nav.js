@@ -9,19 +9,19 @@ const Nav = () => {
     return (
         <div className="main-nav">
             <Link className='links'
-                to="/home"
+                to="/capstone/home"
             > Home
             </Link>
             
             <Link className='links'
-                to="/characters/page/1"
+                to="/capstone/characters/page/1"
             > Characters
             </Link>
            
           
 
             <Link className='links'
-                to="/houses/page/1"
+                to="/capstone/houses/page/1"
             > Houses
             </Link>
 

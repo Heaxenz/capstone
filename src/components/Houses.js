@@ -52,7 +52,7 @@ const Houses = ({ pageNumber, prevPage, nextPage }) => {
 
     const navigateToMemberPage = (memberUrl) => {
         const memberId = memberUrl.split('/').pop();
-        navigate(`/character/${memberId}`);
+        navigate(`/capstone/character/${memberId}`);
     };
 
     if (loading) {

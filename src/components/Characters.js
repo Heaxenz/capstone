@@ -31,7 +31,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
     const navigateToCharacter = (url) => {
         try {
             const characterId = url.split('/').pop();
-            navigate(`/character/${characterId}`);
+            navigate(`/capstone/character/${characterId}`);
 
         } catch (e) {
             console.log(e)

@@ -13,7 +13,7 @@ const CharacterFilter = () => {
 
         const navigateToPage = () => {
             try {
-            navigate(`/characters/page/${pageNumber}`)
+            navigate(`/capstone/characters/page/${pageNumber}`)
             } catch(e) {
                 console.log(e)
             }

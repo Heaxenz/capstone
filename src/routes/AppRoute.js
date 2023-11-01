@@ -8,12 +8,12 @@ const AppRoute = () => {
     return (
     
         <Routes>
-            <Route path='/home' element={<Home />}/>
-            <Route path='*' element={<Navigate to='/home' />}/>
-            <Route path='/characters/page/:num' element={<CharactersFilterPage />}/>
-            <Route path='/houses/page/:num' element={<HouseFilter />}/>
+            <Route path='/capstone/home' element={<Home />}/>
+            {/* <Route path='*' element={<Navigate to='/capstone/home' />}/> */}
+            <Route path='/capstone/characters/page/:num' element={<CharactersFilterPage />}/>
+            <Route path='/capstone/houses/page/:num' element={<HouseFilter />}/>
             
-            <Route path='/character/:characterId' element={<Character />}/>
+            <Route path='/capstone/character/:characterId' element={<Character />}/>
 
         </Routes>
       
