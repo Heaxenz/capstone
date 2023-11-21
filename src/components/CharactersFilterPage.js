@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Characters from "./Characters";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CharacterFilter = () => {
-
     const [pageNumber, setPageNumber] = useState(1);
     
     let navigate = useNavigate();
+    
     useEffect(() => {
 
         const navigateToPage = () => {
@@ -34,13 +34,11 @@ const CharacterFilter = () => {
         }
     }
     
-    const buttonVal = (e) => {
-        setPageNumber(Number(e.target.value))
-    }
+
 
     return (
         <div>
-            <Characters pageNumber={pageNumber} nextPage={() => nextPage()} prevPage={() => prevPage()} buttonVal={(e) => buttonVal(e)}/>
+            <Characters pageNumber={pageNumber} nextPage={() => nextPage()} prevPage={() => prevPage()}/>
         </div>
     )
 }

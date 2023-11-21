@@ -3,11 +3,10 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'
 import './Characters.css'
 
-const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
+const Characters = ({ pageNumber, nextPage, prevPage }) => {
     let navigate = useNavigate();
-    const {num} = useParams();
-    console.log(num)
-    const [character, setCharacters] = useState('');
+    
+    const [characters, setCharacters] = useState('');
     const [loading, setLoading] = useState(true)
     const [pageSize, setPageSize] = useState(10)
 
@@ -25,7 +24,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
         }
 
         fetchCharacters();
-    }, [num, pageNumber, loading, pageSize])
+    }, [pageNumber, loading, pageSize])
 
 
     const navigateToCharacter = (url) => {
@@ -63,7 +62,7 @@ const Characters = ({ pageNumber, nextPage, prevPage, buttonVal }) => {
                         <option>50</option>
                     </select>
                 </div>
-                {character.map(data => (
+                {characters.map(data => (
                     <div className="character-details" key={data.url}>
 
                         <button className="character-details"
