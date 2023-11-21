@@ -68,3 +68,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### Using Capstone of Thrones 
+
+If a unknown url is entered you will automatically be sent to the home page.
+The home page will introduce and explain what the site does in more detail.
+As well as the source the api that was used to create Capstone of Thrones.
+The nav will be always at the very top of the page, and is what will be used to access the other pages in the site.
+
+## Characters & Character page
+
+The character page will get the character data from the api and display each characters name or alias, as well as their gender.
+Each character is also used as a button you can click on to learn more about that specific character. This will send you to the character page displaying more informaiton on the character like their spouse, and allegiances.
+
+## Houses page
+The Houses page will, like the characters page grab data from the api and display the allegiances in Game of Thrones. Showing the titles of that group, the members, as well as the leaders.
+The leader will have a crown button, while the members will have a sword button that will be used to redirect you to their character page.
