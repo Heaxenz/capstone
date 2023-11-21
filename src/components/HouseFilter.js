@@ -11,7 +11,7 @@ const HouseFilter = () => {
     
             const navigateToPage = () => {
                 try {
-                navigate(`/capstone/houses/page/${pageNumber}`)
+                navigate(`/capstoneofthrones/houses/page/${pageNumber}`)
                 } catch(e) {
                     console.log(e)
                 }
@@ -46,3 +46,4 @@ const HouseFilter = () => {
 }
 
 export default HouseFilter;
+

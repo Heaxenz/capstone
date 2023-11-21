@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Characters from "./Characters";
 import { useNavigate, useParams } from "react-router-dom";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
-
 
 const CharacterFilter = () => {
 
@@ -13,7 +11,7 @@ const CharacterFilter = () => {
 
         const navigateToPage = () => {
             try {
-            navigate(`/capstone/characters/page/${pageNumber}`)
+            navigate(`/capstoneofthrones/characters/page/${pageNumber}`)
             } catch(e) {
                 console.log(e)
             }
